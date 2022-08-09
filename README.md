@@ -7,3 +7,7 @@ Cloudinary demo application built using Cloudinary, PostgreSQL, Express, React a
 - Clone this repository.
 - Install all the dependencies using `yarn` or `npm install` inside both `client` and `server` directories.
 - Start the server using `yarn start` or `npm run start` in both `client` and `server` directories.
+
+## Live demo
+
+Project is live [here](https://cloudinary.binayabaral.com.np).
