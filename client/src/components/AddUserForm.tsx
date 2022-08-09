@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-const AddUserForm = () => {
+interface AddUserFormProps {
+  setShouldFetchUsers: (shouldFetchUsers: boolean) => void;
+}
+
+const AddUserForm = (props: AddUserFormProps) => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -47,6 +51,7 @@ const AddUserForm = () => {
       setName('');
       setEmail('');
       setPreviewSource(null);
+      props.setShouldFetchUsers(true);
     } catch (error) {
       console.log(error);
     }

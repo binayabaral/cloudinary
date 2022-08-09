@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import AddUserForms from './components/AdduserForms';
-import UserCard from './components/UserCard';
+
 import User from './domain/User';
+import UserCard from './components/UserCard';
+import AddUserForm from './components/AddUserForm';
+
+import './App.css';
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
+  const [shouldFetchUsers, setShouldFetchUsers] = useState<boolean>(true);
 
   useEffect(() => {
+    if (!shouldFetchUsers) {
+      return;
+    }
+
     (async () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/users`, {
@@ -15,31 +22,34 @@ function App() {
         });
         const { data } = await response.json();
         setUsers(data);
+        setShouldFetchUsers(false);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [shouldFetchUsers]);
 
   return (
     <>
       <section>
         <div className='container'>
           <div className='columns-wrap'>
-            <AddUserForms />
+            <AddUserForm setShouldFetchUsers={setShouldFetchUsers} />
           </div>
         </div>
       </section>
-      <section>
-        <div className='container'>
-          <h1>Here is the list of all the users</h1>
-          <div className='columns-wrap'>
-            {users.map(user => (
-              <UserCard {...user} />
-            ))}
+      {users.length && (
+        <section>
+          <div className='container'>
+            <h1>Here is the list of all the users</h1>
+            <div className='columns-wrap'>
+              {users.map(user => (
+                <UserCard {...user} key={user.id} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }
