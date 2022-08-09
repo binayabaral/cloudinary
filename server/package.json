@@ -13,7 +13,8 @@
     "format:code": "run-s lint:fix prettify",
     "migration:make": "knex --migrations-directory src/db/migrations migrate:make",
     "rollback": "knex migrate:rollback --knexfile src/db/knexfile.ts",
-    "migrate": "knex migrate:latest --knexfile src/db/knexfile.ts"
+    "migrate": "knex migrate:latest --knexfile src/db/knexfile.ts",
+    "migrate:prod": "knex migrate:latest --knexfile dist/db/knexfile.js"
   },
   "keywords": [
     "typescript",
