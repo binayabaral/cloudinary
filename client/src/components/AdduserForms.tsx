@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-const AddUserForms = () => {
+const AddUserForm = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [previewSource, setPreviewSource] = useState<string | ArrayBuffer | null>(null);
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,9 +16,9 @@ const AddUserForms = () => {
   };
 
   const previewFile = (file: File) => {
-    const reader = new FileReader(); // File => Base64 Encoded string
+    const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => {
+    reader.onloadend = () => {
       setPreviewSource(reader.result);
     };
   };
@@ -36,11 +37,16 @@ const AddUserForms = () => {
     };
 
     try {
+      setIsSubmitting(true);
       await fetch(`${process.env.REACT_APP_BASE_URL}/users`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: { 'Content-Type': 'application/json' }
       });
+      setIsSubmitting(false);
+      setName('');
+      setEmail('');
+      setPreviewSource(null);
     } catch (error) {
       console.log(error);
     }
@@ -74,16 +80,18 @@ const AddUserForms = () => {
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
-        <div className='form-group'>
-          <label htmlFor='image'>Image</label>
-          <input type='file' className='form-control' id='image' name='image' onChange={handleFileInputChange} />
-        </div>
-        <div className='form-group'>
-          <button type='submit'>Submit</button>
-        </div>
+      </div>
+      <div className='form-group'>
+        <label htmlFor='image'>Image</label>
+        <input type='file' className='form-control' id='image' name='image' onChange={handleFileInputChange} />
+      </div>
+      <div className='form-group'>
+        <button type='submit' disabled={isSubmitting}>
+          Submit
+        </button>
       </div>
     </form>
   );
 };
 
-export default AddUserForms;
+export default AddUserForm;

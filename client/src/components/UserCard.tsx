@@ -9,7 +9,7 @@ const UserCard = (props: UserCardProps) => {
   return (
     <div className='column'>
       <div className='display-img'>
-        <img src={profilePicUrl} alt='' />
+        <img src={profilePicUrl} alt={name} />
       </div>
       <div className='form-group'>Name: {name}</div>
       <div className='form-group'>Email: {email}</div>
