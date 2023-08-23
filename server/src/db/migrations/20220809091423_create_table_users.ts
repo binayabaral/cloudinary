@@ -1,15 +1,15 @@
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
 /**
  * Migration to create a new table for users.
  * @param {Knex} knex
  */
 export async function up(knex: Knex): Promise<void> {
-  await knex.schema.createTable('users', table => {
-    table.increments('id').primary();
-    table.string('name').notNullable();
-    table.string('email').notNullable();
-    table.string('profile_pic_url').notNullable();
+  await knex.schema.createTable("users", (table) => {
+    table.increments("id").primary();
+    table.string("name").notNullable();
+    table.string("email").notNullable();
+    table.string("profile_pic_url").notNullable();
   });
 }
 
@@ -18,5 +18,5 @@ export async function up(knex: Knex): Promise<void> {
  * @param {Knex} knex
  */
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable('users');
+  await knex.schema.dropTable("users");
 }

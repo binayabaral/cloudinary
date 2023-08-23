@@ -1,11 +1,11 @@
 // import logger from '../misc/logger';
-import Success from '../domain/Success';
-import UserModel from '../models/UserModel';
-import User, { CreateUserPayload } from '../domain/User';
-import logger from '../misc/logger';
-import cloudinary from '../utils/cloudinary';
-import CustomError from '../misc/CustomError';
-import { StatusCodes } from 'http-status-codes';
+import Success from "../domain/Success";
+import UserModel from "../models/UserModel";
+import User, { CreateUserPayload } from "../domain/User";
+import logger from "../misc/logger";
+import cloudinary from "../utils/cloudinary";
+import CustomError from "../misc/CustomError";
+import { StatusCodes } from "http-status-codes";
 
 /**
  * Create a new User.
@@ -16,22 +16,22 @@ export const createUser = async (payload: CreateUserPayload): Promise<Success<Us
   const { fileString } = payload;
 
   try {
-    logger.info('Uploading image to cloudinary');
+    logger.info("Uploading image to cloudinary");
     const uploadResponse = await cloudinary.uploader.upload(fileString, {
-      upload_preset: 'node-training'
+      upload_preset: "node-training",
     });
-    logger.info('Successfully uploaded image to cloudinary');
+    logger.info("Successfully uploaded image to cloudinary");
 
     const { url } = uploadResponse;
     const insertedUser = await UserModel.createUser({
       name: payload.name,
       email: payload.email,
-      profilePictureURL: url
+      profilePictureURL: url,
     });
 
     return {
       data: insertedUser,
-      message: 'User created successfully'
+      message: "User created successfully",
     };
   } catch (error) {
     throw new CustomError(`Error creating a new user`, StatusCodes.INTERNAL_SERVER_ERROR);
@@ -43,6 +43,6 @@ export const getAllUsers = async (): Promise<Success<User[]>> => {
 
   return {
     data: users,
-    message: 'Users retrieved successfully'
+    message: "Users retrieved successfully",
   };
 };

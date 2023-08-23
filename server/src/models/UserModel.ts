@@ -1,11 +1,11 @@
-import { StatusCodes } from 'http-status-codes';
-import knex from '../db/knex';
-import { UserToInsert } from '../domain/User';
-import CustomError from '../misc/CustomError';
-import logger from '../misc/logger';
+import { StatusCodes } from "http-status-codes";
+import knex from "../db/knex";
+import { UserToInsert } from "../domain/User";
+import CustomError from "../misc/CustomError";
+import logger from "../misc/logger";
 
 class User {
-  public static table = 'users';
+  public static table = "users";
 
   public static async createUser(user: UserToInsert) {
     try {
@@ -13,8 +13,8 @@ class User {
 
       const newUser = await knex(this.table)
         .insert({ name: user.name, email: user.email, profile_pic_url: user.profilePictureURL })
-        .returning('*');
-      logger.info('User inserted');
+        .returning("*");
+      logger.info("User inserted");
 
       return newUser;
     } catch (error) {

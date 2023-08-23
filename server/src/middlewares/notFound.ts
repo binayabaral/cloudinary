@@ -1,7 +1,7 @@
-import { StatusCodes } from 'http-status-codes';
-import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from "http-status-codes";
+import { NextFunction, Request, Response } from "express";
 
-import CustomError from '../misc/CustomError';
+import CustomError from "../misc/CustomError";
 
 /**
  * Middleware to handle invalid routes

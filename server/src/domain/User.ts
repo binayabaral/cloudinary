@@ -5,7 +5,7 @@ interface User {
   profilePictureURL: string;
 }
 
-export type UserToInsert = Omit<User, 'id'>;
+export type UserToInsert = Omit<User, "id">;
 
 export interface CreateUserPayload {
   name: string;

@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /source/deployments/backend
+hooks:
+  AfterInstall:
+    - location: after-install.sh
+      timeout: 600
+      runas: ubuntu

@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from "fs";
 
 /**
  * Write to a file.
@@ -6,5 +6,5 @@ import fs from 'fs';
  * @param {object} content
  */
 export const writeDataToFile = (filename: string, content: object) => {
-  fs.writeFileSync(filename, JSON.stringify(content), 'utf8');
+  fs.writeFileSync(filename, JSON.stringify(content), "utf8");
 };
